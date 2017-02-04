@@ -39,7 +39,7 @@ public class FileParser {
             properties = new Properties();
             properties.load(fileInputStream);
         } catch (FileNotFoundException e) {
-            System.err.println("Файл: "+file.getAbsolutePath()+" не найден! \n");;
+            System.err.println("Файл: "+file.getAbsolutePath()+" не найден! \n");
         } catch (IOException e) {
             System.err.println("Ошибка ввода/вывода:\n");
         }

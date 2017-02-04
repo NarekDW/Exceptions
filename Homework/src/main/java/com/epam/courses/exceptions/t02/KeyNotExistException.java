@@ -1,7 +1,5 @@
 package com.epam.courses.exceptions.t02;
 
-import java.io.File;
-
 /**
  * Date: 03.02.2017
  *

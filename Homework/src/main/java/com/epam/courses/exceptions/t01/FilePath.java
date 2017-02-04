@@ -44,7 +44,7 @@ public class FilePath {
      * в случае неправильного задания имени файла(например не задать имя файла),
      * создается default файл, куда записывается информация.
      * </p>
-     * @parametr encodeing задаёт кодировку файла
+     * @parametr encoding задаёт кодировку файла
      * */
     private String encoding = "UTF-8";
     public void writeToFile(File file, String message){
