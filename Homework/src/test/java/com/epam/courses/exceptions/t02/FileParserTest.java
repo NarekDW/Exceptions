@@ -15,7 +15,7 @@ public class FileParserTest {
     @Test
     public void getValueTest(){
         FileParser fp = new FileParser(
-                "src/test/resources/db.properties");
+                "src/main/resources/db.properties");
         assertThat(fp.getValue("driver"), is("org.h2.Driver"));
     }
 }
