@@ -1,5 +1,7 @@
 package com.epam.courses.exceptions.t02;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,6 +16,7 @@ import java.util.Properties;
 @SuppressWarnings("WeakerAccess")
 public class FileParser {
     private Properties properties;
+    private static Logger logger = Logger.getLogger("src/main/resources/log4j");
 
     public FileParser(File file){
          loading(file);
@@ -24,11 +27,11 @@ public class FileParser {
     }
 
     public String getValue(@SuppressWarnings("SameParameterValue") String key){
-        String value;
-        if((value = properties.getProperty(key))== null)
-                throw new KeyNotExistException(
-                        "\nКлюча - "+key+" не существует в данном фале!");
-        return value;
+        if(properties.containsKey(key))
+            return properties.getProperty(key);
+        KeyNotExistException e = new KeyNotExistException();
+        logger.warn("Key not exist in properties", e);
+        throw e;
     }
 
     /*
@@ -40,9 +43,9 @@ public class FileParser {
             properties = new Properties();
             properties.load(fileInputStream);
         } catch (FileNotFoundException e) {
-            System.err.println("Файл: "+file.getAbsolutePath()+" не найден! \n");
+            logger.error("Can't find such file",e );
         } catch (IOException e) {
-            System.err.println("Ошибка ввода/вывода:\n");
+            logger.error("IO exception", e);
         }
         return properties;
     }

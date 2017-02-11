@@ -6,12 +6,12 @@ package com.epam.courses.exceptions.t02;
  * @author Karapetyan N.K
  */
 public class KeyNotExistException extends RuntimeException {
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "WeakerAccess"})
     public KeyNotExistException() {
         super();
     }
 
-    @SuppressWarnings("WeakerAccess")
+    @SuppressWarnings({"unused", "WeakerAccess"})
     public KeyNotExistException(String message) {
         super(message);
     }
