@@ -14,13 +14,12 @@ import static org.junit.Assert.assertThat;
  */
 public class FilePathTest {
     private FilePath fp = new FilePath();
-    private String simplefile = "simplefile.txt";
-    private String defaultFile = "default.txt";
     private String oldFile;
     private String newFile;
 
     @Test
     public void simpleWriteTest() throws IOException {
+        String simplefile = "simplefile.txt";
         fp.writeToFile(simplefile, "hello");
         oldFile = read(simplefile);
         fp.writeToFile(simplefile, "world");
@@ -31,6 +30,7 @@ public class FilePathTest {
     @Test
     public void defaultWriteTest() throws IOException {
         fp.writeToFile("", "hello");
+        String defaultFile = "default.txt";
         oldFile = read(defaultFile);
         fp.writeToFile("", "world");
         newFile = read(defaultFile);
@@ -56,7 +56,7 @@ public class FilePathTest {
         StringBuilder sb = new StringBuilder();
         String str;
         while((str = br.readLine())!=null)
-            sb.append(str+"\n");
+            sb.append(str).append("\n");
         br.close();
         return sb.toString();
     }

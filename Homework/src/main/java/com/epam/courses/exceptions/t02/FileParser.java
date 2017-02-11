@@ -11,6 +11,7 @@ import java.util.Properties;
  *
  * @author Karapetyan N.K
  */
+@SuppressWarnings("WeakerAccess")
 public class FileParser {
     private Properties properties;
 
@@ -22,7 +23,7 @@ public class FileParser {
         this(new File(file));
     }
 
-    public String getValue(String key){
+    public String getValue(@SuppressWarnings("SameParameterValue") String key){
         String value;
         if((value = properties.getProperty(key))== null)
                 throw new KeyNotExistException(

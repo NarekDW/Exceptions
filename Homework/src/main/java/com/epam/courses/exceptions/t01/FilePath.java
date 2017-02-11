@@ -9,10 +9,8 @@ import java.util.Arrays;
  * @author Karapetyan N.K
  */
 public class FilePath {
-    private final String REGEX = "(.*[\\.]gradle)|(.*[\\.]idea)|(build)"; // Отсекает системные папки
     private  FileSet files = new FileSet();
     private  FileSet dirs = new FileSet();
-
     /**
      * <p>
      * Метод рекурсивно проходит по всему дереву директорий
@@ -20,11 +18,15 @@ public class FilePath {
      * в отдельный массив File[], а файлы в другой массив File[].
      * </p>
      * */
+    @SuppressWarnings("WeakerAccess")
     public FilePath getDirsAndFiles(File dirStart){
         FilePath fp = new FilePath();
+        //noinspection ConstantConditions
         for(File item : dirStart.listFiles()){
             if(item.isDirectory()){
-                if(!item.getName().matches(REGEX)){
+                // Отсекаем системные папки
+                if(!item.getName().
+                        matches("(.*[.]gradle)|(.*[.]idea)|(build)")){
                     fp.dirs.add(item);
                     fp.addAll(getDirsAndFiles(item));
                 }
@@ -34,7 +36,9 @@ public class FilePath {
         return fp;
     }
     // Перегруженный метод
-    public FilePath getDirsAndFiles(String dirStart){
+    @SuppressWarnings("WeakerAccess")
+    public FilePath getDirsAndFiles(
+            @SuppressWarnings("SameParameterValue") String dirStart){
         return getDirsAndFiles(new File(dirStart));
     }
 
@@ -47,14 +51,16 @@ public class FilePath {
      * @parametr encoding задаёт кодировку файла
      * */
     private String encoding = "UTF-8";
+    @SuppressWarnings("WeakerAccess")
     public void writeToFile(File file, String message){
         try(PrintWriter out = new PrintWriter( new OutputStreamWriter(
                 new FileOutputStream(file, true), encoding
         ))) {
             out.println(message);
         } catch (FileNotFoundException e) {
-            File defaultFile = null;
+            File defaultFile;
             try {
+                //noinspection ResultOfMethodCallIgnored
                 file.createNewFile();
                 writeToFile(file, message);
             } catch (IOException e1) {
@@ -67,6 +73,7 @@ public class FilePath {
         }
     }
     // Перегруженный метод
+    @SuppressWarnings("WeakerAccess")
     public void writeToFile(String file, String message){
         writeToFile(new File(file), message);
     }
@@ -76,10 +83,10 @@ public class FilePath {
         StringBuilder sb = new StringBuilder();
         sb.append("Files:\n");
         for(File f:files.contain)
-            sb.append(f+"\n");
+            sb.append(f).append("\n");
         sb.append("\nDirectories:\n");
         for(File d:dirs.contain)
-            sb.append(d+"\n");
+            sb.append(d).append("\n");
         return sb.toString();
     }
 
